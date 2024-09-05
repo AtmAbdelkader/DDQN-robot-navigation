@@ -457,7 +457,7 @@ class GazeboEnv:
          # Delete the existing goal marker before spawning a new one
         self.delete_goal_marker()
 
-time.sleep(0.2)
+        time.sleep(0.2)
 
         # Once a valid goal is found, visualize it in Gazebo
         self.spawn_goal_marker(self.goal_x, self.goal_y)
