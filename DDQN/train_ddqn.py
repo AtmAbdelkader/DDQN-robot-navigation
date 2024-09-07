@@ -32,7 +32,7 @@ n_actions = 5  # discret action (right/left/forward/f-l/f-r)
 agent = DDQNAgent(n_states, n_actions, seed)
 
 # Set the number of episodes and the maximum number of steps per episode
-num_episodes = 1200
+num_episodes = 2500
 max_steps = 500
 
 # Set the exploration rate
