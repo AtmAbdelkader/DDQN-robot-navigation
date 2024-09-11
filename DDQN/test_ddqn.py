@@ -68,7 +68,7 @@ except:
     print("\033[31mCould not load the stored model parameters, initializing training with random parameters\033[0m") 
 
 # Set the number of test episodes
-num_test_episodes = 10
+num_test_episodes = 100
 max_steps = 500
 
 # Set exploration rate to 0 (no exploration during testing)
