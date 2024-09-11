@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import torch 
 import torch.nn as nn
 import torch.nn.functional as F
@@ -42,7 +44,7 @@ class DDQNAgent:
             return random.choice(np.arange(self.action_size))
         
     def load(self, filename, directory):
-        self.qnetwork_local.load_state_dict(torch.load('%s/%s_ddqn.pth' % (directory, filename)))
+        self.qnetwork_local.load_state_dict(torch.load('%s/%s_ddqn_PER.pth' % (directory, filename)))
 
 file_name = "velodyne"
 seed = 0 # Set random seed
@@ -60,20 +62,24 @@ n_actions = 5  # discret action (right/left/forward/f-l/f-r)
 agent = DDQNAgent(n_states, n_actions)
 
 try:
-    agent.load(file_name, "/home/belabed/DRL-robot-navigation/DQN/pytorch_models/ddqn")
+    agent.load(file_name, "/home/belabed/DRL-robot-navigation/DQN/pytorch_models/ddqn_PER")
     print("\033[32mloaded seccessflly\033[0m")
 except:
     print("\033[31mCould not load the stored model parameters, initializing training with random parameters\033[0m") 
 
 # Set the number of test episodes
-num_test_episodes = 100
-max_steps = 1000
+num_test_episodes = 10
+max_steps = 500
 
 # Set exploration rate to 0 (no exploration during testing)
 eps = 0.0
 
-# Store test rewards
+# Store test rewards and metrics
 test_rewards = []
+collisions = 0
+successes = 0
+episode_times = []
+
 
 # Run the testing loop
 for i_episode in range(num_test_episodes):
@@ -82,9 +88,18 @@ for i_episode in range(num_test_episodes):
     # Initialize the environment and the state
     state = env.reset()
     episode_reward = 0
+    episode_steps = 0
+    episode_collisions = 0
+
+    # Start the timer
+    start_time = time.time()
+
     
     # Run the episode
     for t in range(max_steps):
+
+        episode_steps += 1
+
         # Select an action based on the policy (no exploration)
         action = agent.act(state, eps)
         
@@ -95,21 +110,40 @@ for i_episode in range(num_test_episodes):
         state = next_state
         episode_reward += reward
         
+        if reward < 0:
+            episode_collisions += 1
+
         # If the episode ends, break the loop
         if done:
+            if reward > 130:  # Assume a large positive reward means reaching the goal
+                successes += 1
             break
     
+     # End the timer and calculate the time taken for this episode
+    end_time = time.time()
+    episode_time = end_time - start_time
+    episode_times.append(episode_time)
+
     # Store the total reward for this episode
     test_rewards.append(episode_reward)
     print(f'Reward for episode {i_episode + 1}: {episode_reward}')
+    print(f'Time taken for episode {i_episode + 1}: {episode_time:.2f} seconds')
+
+    # Store the total reward and collisions for this episode
+    test_rewards.append(episode_reward)
+    collisions += episode_collisions
+    print(f'Reward for episode {i_episode + 1}: {episode_reward}')
+
+# Calculate success rate, collision rate, and average time to reach the goal
+success_rate = successes / num_test_episodes
+collision_rate = collisions / (num_test_episodes * max_steps)
+average_time = np.mean(episode_times)
+
+# Print the metrics
+print(f'Success Rate: {success_rate * 100}%')
+print(f'Collision Rate: {collision_rate * 100}%')
+print(f'Average Time to Reach Goal: {average_time:.2f} seconds')
 
 # Calculate and print the average reward across all test episodes
 average_test_reward = np.mean(test_rewards)
 print(f'Average Test Reward: {average_test_reward}')
-
-# plot the test rewards
-plt.plot(test_rewards)
-plt.title('Test Rewards per Episode')
-plt.xlabel('Episode')
-plt.ylabel('Reward')
-plt.show()
