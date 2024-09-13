@@ -351,7 +351,15 @@ class GazeboEnv:
 
         robot_state = [distance, theta, linear_vel, angular_vel]
         state = np.append(laser_state, robot_state)
-        reward = self.get_reward(target, collision, action, min_laser)
+        reward = self.get_reward(target, collision, action, min_laser, self.prev_action, self.swing_counter, self.swing_threshold)
+        
+        if (self.prev_action == 1 and action == 2) or (self.prev_action == 2 and action == 1):
+            self.swing_counter += 1  # زيادة عداد التأرجح إذا حدث تبديل مفرط بين اليسار واليمين
+        else:
+            self.swing_counter = 0  # إعادة تعيين عداد التأرجح إذا كان الفعل مختلفًا
+
+        # تحديث الفعل السابق بعد تنفيذ الحركة
+        self.prev_action = action
         return state, reward, done, target
 
     def reset(self):
