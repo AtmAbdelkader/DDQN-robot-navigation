@@ -570,5 +570,14 @@ class GazeboEnv:
             #rospy.loginfo("reward -100")
             return -100.0
         else:
+            if (prev_action == 1 and action == 2) or (prev_action == 2 and action == 1): #or (action in [1, 2] and prev_action == action):
+                swing_counter += 1
+            else:
+                swing_counter = 0
+
+            if swing_counter > swing_threshold:    
+                swing_penalty = -20.0
+            else:
+                swing_penalty = 0.0
             r3 = lambda x: 1 - x if x < 1 else 0.0
-            return action / 2 - abs(action) / 2 - r3(min_laser) / 2
+            return action / 2 - abs(action) / 2 - r3(min_laser) / 2 + swing_penalty
