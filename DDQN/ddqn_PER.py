@@ -117,7 +117,7 @@ class DDQNAgent:
         self.replay_buffer = PrioritizedReplayBuffer(capacity, alpha)
         #self.update_target_network()
 
-        self.writer = SummaryWriter("/home/belabed/DRL-robot-navigation/DQN/runs/ddqn_PER")
+        self.writer = SummaryWriter("<your path>/runs/ddqn_PER")
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay buffer
