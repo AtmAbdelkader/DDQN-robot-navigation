@@ -62,7 +62,7 @@ n_actions = 5  # discret action (right/left/forward/f-l/f-r)
 agent = DDQNAgent(n_states, n_actions)
 
 try:
-    agent.load(file_name, "/home/belabed/DRL-robot-navigation/DQN/pytorch_models/ddqn_PER")
+    agent.load(file_name, "./pytorch_models/ddqn_PER")
     print("\033[32mloaded seccessflly\033[0m")
 except:
     print("\033[31mCould not load the stored model parameters, initializing training with random parameters\033[0m") 
