@@ -56,7 +56,7 @@ random_action = None  # Placeholder for random discrete action
 
 if load_model:
         try:
-            agent.load(file_name, "/home/belabed/DRL-robot-navigation/DQN/pytorch_models/ddqn")
+            agent.load(file_name, "./DQN/pytorch_models/ddqn")
             print("\033[32mloaded seccessflly\033[0m")
         except:
             print(
@@ -125,7 +125,7 @@ for i_episode in range(num_episodes):
 
       # Save the model after each episode
     if save_model:
-        agent.save(file_name, directory="/home/belabed/DRL-robot-navigation/DQN/pytorch_models/ddqn")
+        agent.save(file_name, directory="./pytorch_models/ddqn")
 
 # Calculate success and collision rates
 success_rate = success_count / num_episodes
