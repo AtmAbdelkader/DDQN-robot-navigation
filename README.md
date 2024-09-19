@@ -23,4 +23,4 @@ Main dependencies:
 
 ## DDQN-robot-navigation
 
-
+Deep Reinforcement Learning for mobile robot navigation in ROS Gazebo simulator. Using Double Deep Q_learning (DDQN) and Prioritized experience replay buffer with DDQN, a robot learns to navigate to a random goal point in a simulated environment while avoiding obstacles. Obstacles are detected by laser readings and a goal is given to the robot in polar coordinates. Trained in ROS Gazebo simulator with PyTorch.
