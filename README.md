@@ -1,4 +1,4 @@
-# DDQN-robot-navigation
+# Installation
 
 To prepare your PC you need:
 * Install Ubuntu 20.04 on PC or in Virtual Machine
@@ -16,3 +16,11 @@ sudo apt-get update && sudo apt-get install -y \
      ros-noetic-robot-localization \
      ros-noetic-actionlib-tools
 ```
+
+Main dependencies: 
+* [PyTorch](https://pytorch.org/get-started/locally/)
+* [Tensorboard](https://github.com/tensorflow/tensorboard)
+
+## DDQN-robot-navigation
+
+
