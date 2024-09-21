@@ -1,4 +1,7 @@
-############################ PRIORITIZED EXPIRIENCE REPLAY-BUFFER WITH DDQN ######################################################
+"""
+PRIORITIZED EXPIRIENCE REPLAY-BUFFER WITH DDQN
+Author: Belabed Abdelkader
+"""
 #!/usr/bin/env python3 
 
 import torch 
