@@ -1,3 +1,9 @@
+#Introduction 
+
+this work is based on reiniscimurs repository
+I have made some changes on the environment code (DAS_env.py) to suit the discrete action spaces algorithms
+
+
 # Installation
 
 To prepare your PC you need:
@@ -20,6 +26,7 @@ sudo apt-get update && sudo apt-get install -y \
 Main dependencies: 
 * [PyTorch](https://pytorch.org/get-started/locally/)
 * [Tensorboard](https://github.com/tensorflow/tensorboard)
+
 
 ## DDQN-robot-navigation
 
