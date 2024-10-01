@@ -1,0 +1,16 @@
+alpha1: 0.2
+alpha2: 0.2
+alpha3: 0.8
+alpha4: 0.2
+alpha5: 0.1
+base_frame_id: "base_link"
+global_frame_id: "map"
+update_min_d: 0.2
+update_min_a: 0.1
+kld_err: 0.05
+kld_z: 0.99
+min_particles: 100
+max_particles: 5000
+odom_frame_id: "odom"
+laser_min_range: 0.1
+laser_max_range: 30.0
