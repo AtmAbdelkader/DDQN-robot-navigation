@@ -216,24 +216,7 @@ class GazeboEnv:
             rate.sleep()
 
         '''
-
-    '''#Read Hukuyo LIDAR data :
-    def scan_callback(self, msg):
-        ranges = msg.ranges
-        self.lidar_data = np.ones(self.environment_dim) * 10
-
-        angle_increment = msg.angle_increment
-        angle_min = msg.angle_min
-
-        for i in range(len(ranges)):
-            distance = ranges[i]
-            if distance < msg.range_max:
-                angle = angle_min + i * angle_increment
-                for j in range(len(self.gaps)):
-                    if self.gaps[j][0] <= angle < self.gaps[j][1]:
-                        self.lidar_data[j] = min(self.lidar_data[j], distance)
-                        break'''
-            
+     
     # Read velodyne pointcloud and turn it into distance data, then select the minimum value for each angle
     # range as state representation
     def velodyne_callback(self, v):
